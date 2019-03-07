@@ -1,4 +1,4 @@
-package main.java;
+package main.java.intrnshp_01_HelloWorld;
 
 public class HelloWorld {
     public static void main(String[] args) {
