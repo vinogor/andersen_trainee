@@ -1,16 +1,17 @@
-package main.java.intrnshp_02_Queue_FIFO;
+package intrnshp_02_Queue_FIFO;
 
 public class Main {
     public static void main(String[] args) {
-        QueueFifo queueFifo = new QueueFifo(4);
+        QueueFifo<String> queueFifo = new QueueFifo(4);
         queueFifo.add("111");
         queueFifo.print();
+//        queueFifo.add(null);
         queueFifo.add("222");
         queueFifo.add("333");
         queueFifo.add("444");
         queueFifo.print();
 
-        queueFifo.add("555");
+//        queueFifo.add("555");
         System.out.println("Available " + queueFifo.getAvailableItems() + " items");
         System.out.println("First in queue: " + queueFifo.get());
 

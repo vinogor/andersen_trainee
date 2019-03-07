@@ -1,19 +1,23 @@
-package main.java.intrnshp_02_Queue_FIFO;
+package intrnshp_02_Queue_FIFO;
 
-public class QueueFifo {
+public class QueueFifo<T> {
 
     private int capacity;
     private int availableItems = 0;
-    private String[] queueFifo;
+    private T[] queueFifo;
 
     public QueueFifo(int capacity) {
         this.capacity = capacity;
-        queueFifo = new String[capacity];
+        queueFifo = (T[]) new Object[capacity];
     }
 
-    public void add(String s) {
+    public void add(T s) throws IllegalArgumentException {
+        checkNull(s);
         if (isFull()) {
-            System.out.println("ERROR: queue overflowed");
+            throw new RuntimeException("ERROR: queue already full");
+        } else if (isEmpty()) {
+            queueFifo[0] = s;
+            availableItems++;
         } else {
             System.arraycopy(queueFifo, 0, queueFifo, 1, availableItems);
             queueFifo[0] = s;
@@ -23,22 +27,21 @@ public class QueueFifo {
 
     public void del() {
         if (isEmpty()) {
-            System.out.println("ERROR: queue is empty");
+            throw new RuntimeException("ERROR: queue already full");
         }
         availableItems--;
         queueFifo[availableItems] = null;
     }
 
-    public String get(){
+    public T get() {
         if (isEmpty()) {
-            System.out.println("ERROR: queue is empty");
-            return null;
+            throw new RuntimeException("ERROR: queue is empty");
         }
-        return queueFifo[availableItems-1];
+        return queueFifo[availableItems - 1];
     }
 
     public void fromBeginToEnd() {
-        String buff = get();
+        T buff = get();
         del();
         add(buff);
     }
@@ -57,6 +60,12 @@ public class QueueFifo {
             System.out.print(queueFifo[i] + " | ");
         }
         System.out.println();
+    }
+
+    private void checkNull(T s) throws IllegalArgumentException {
+        if (s == null) {
+            throw new IllegalArgumentException("item is NULL");
+        }
     }
 
     private boolean isFull() {
