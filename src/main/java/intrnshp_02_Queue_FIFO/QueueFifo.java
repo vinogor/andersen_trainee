@@ -4,8 +4,7 @@ package intrnshp_02_Queue_FIFO;
  * FIFO queue, generalized collection
  *
  * @param <T> - type of objects to be stored in the queue
- * @author - Andreev Aleksandr
- * @email - al.andreev@andersenlab.com
+ * @author - Andreev Aleksandr, al.andreev@andersenlab.com
  */
 
 public class QueueFifo<T> {
