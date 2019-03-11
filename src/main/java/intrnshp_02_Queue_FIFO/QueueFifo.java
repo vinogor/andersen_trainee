@@ -2,108 +2,114 @@ package intrnshp_02_Queue_FIFO;
 
 /**
  * Класс - очередь FIFO, обобщённая колекция
- * @autor - Андреев Александр
- * @email - al.andreev@andersenlab.com
+ *
  * @param <T> - тип объектов, которые будут храниться в очереди
+ * @author - Андреев Александр
+ * @email - al.andreev@andersenlab.com
  */
 
 public class QueueFifo<T> {
 
     private int capacity;
     private int availableItems = 0;
-    private T[] queueFifo;
+    private T[] arrayForQueue;
 
-    /**
-     * Конструктор - получение максимального размера очереди и создание массива для её хранения
-     * @param capacity - максимальный размер создаваемой очереди
-     */
-    public QueueFifo(int capacity) {
+    /** Set maximum queue size and initialize it */
+    public void init(int capacity) {
         this.capacity = capacity;
-        queueFifo = (T[]) new Object[capacity];
+        arrayForQueue = (T[]) new Object[capacity];
     }
 
     /**
-     * Метод добавления элемента в конец очереди
-     * @param obj - добавляемый элемент
-     * @throws IllegalArgumentException - при попытке добавить элемент в полностью заполненную очередь
+     * Add item in the end of queue.
+     * @param obj - add item.
+     * @throws IllegalArgumentException - when trying to add null item.
+     * @throws ArrayIndexOutOfBoundsException - when trying to add an item to a fully populated queue.
      */
-    public void add(T obj) throws IllegalArgumentException {
+    public void add(T obj) throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
         checkNull(obj);
         if (isFull()) {
-            throw new RuntimeException("ERROR: queue already full");
+            throw new ArrayIndexOutOfBoundsException("ERROR: queue already full");
         } else if (isEmpty()) {
-            queueFifo[0] = obj;
+            arrayForQueue[0] = obj;
             availableItems++;
         } else {
-            System.arraycopy(queueFifo, 0, queueFifo, 1, availableItems);
-            queueFifo[0] = obj;
+            System.arraycopy(arrayForQueue, 0, arrayForQueue, 1, availableItems);
+            arrayForQueue[0] = obj;
             availableItems++;
         }
     }
 
     /**
-     * Метод - удаление элемента из начала очереди
-     * @throws RuntimeException - при попытке удалить объект из пустой очереди
+     * Remove item from head if queue.
+     * @throws IndexOutOfBoundsException - when trying to remove item from empty queue.
      */
-    public void del()throws RuntimeException {
+    public void del() throws IndexOutOfBoundsException {
         if (isEmpty()) {
-            throw new RuntimeException("ERROR: queue already full");
+            throw new IndexOutOfBoundsException("ERROR: queue is already empty");
         }
         availableItems--;
-        queueFifo[availableItems] = null;
+        arrayForQueue[availableItems] = null;
     }
 
     /**
-     * Метод - получение первого элемента в очереди
-     * @return - возвращает первый элемент в очереди
-     * @throws RuntimeException - при попытке получить элемент из пустой очереди
+     * Remove all items from head if queue.
+     * @throws IndexOutOfBoundsException - when trying to remove items from empty queue.
      */
-    public T get() throws RuntimeException {
+    public void clear() {
         if (isEmpty()) {
-            throw new RuntimeException("ERROR: queue is empty");
+            throw new IndexOutOfBoundsException("ERROR: queue is already empty");
         }
-        return queueFifo[availableItems - 1];
+        for (int i = 0; i < capacity; i++) {
+            arrayForQueue[i] = null;
+        }
+        availableItems = 0;
     }
 
-    /** Метод - переместить элемент из начала в конец очереди */
-    public void fromBeginToEnd() {
-        T buff = get();
-        del();
-        add(buff);
+    /**
+     * Get first item int the queue.
+     * @return - first item int the queue.
+     * @throws IndexOutOfBoundsException - when trying to get item from empty queue.
+     */
+    public T get() throws IndexOutOfBoundsException {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("ERROR: queue is empty");
+        }
+        return arrayForQueue[availableItems - 1];
     }
 
-    /** Метод - возвращает максимально возможный размер очереди */
+    /** Return the maximum possible queue size */
     public int getCapacity() {
         return capacity;
     }
 
-    /** Метод - возвращает количество элементов в очереди */
+    /** Return the current number of items in the queue */
     public int getAvailableItems() {
         return availableItems;
     }
 
-    /** Метод - выводит содержимое всего массива на экран (в т.ч. пустые ячейки) */
+    /** Display the contents of the entire array on the screen (including empty cells) */
     public void print() {
         System.out.print("| ");
         for (int i = 0; i < capacity; i++) {
-            System.out.print(queueFifo[i] + " | ");
+            System.out.print(arrayForQueue[i] + " | ");
         }
         System.out.println();
     }
 
-    /** Метод - проверяем на null элемент, который хотим поместить в очередь */
-    private void checkNull(T s) throws IllegalArgumentException {
+    /** Check for null element */
+    private void checkNull(T s) {
         if (s == null) {
             throw new IllegalArgumentException("item is NULL");
         }
     }
 
-    /** Метод - проверяем, не заполнена ли полностью очередь? */
+    /** Check if the queue is full? */
     private boolean isFull() {
         return availableItems == capacity;
     }
 
-    /** Метод - проверяем, не пуста ли очередь? */
+    /** Check if the queue is empty? */
     private boolean isEmpty() {
         return availableItems == 0;
     }
