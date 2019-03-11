@@ -1,10 +1,10 @@
 package intrnshp_02_Queue_FIFO;
 
 /**
- * Класс - очередь FIFO, обобщённая колекция
+ * FIFO queue, generalized collection
  *
- * @param <T> - тип объектов, которые будут храниться в очереди
- * @author - Андреев Александр
+ * @param <T> - type of objects to be stored in the queue
+ * @author - Andreev Aleksandr
  * @email - al.andreev@andersenlab.com
  */
 
