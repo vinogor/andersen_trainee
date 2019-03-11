@@ -14,7 +14,9 @@ public class QueueFifo<T> {
     private int availableItems = 0;
     private T[] arrayForQueue;
 
-    /** Set maximum queue size and initialize it */
+    /**
+     * Set maximum queue size and initialize it
+     */
     public void init(int capacity) {
         this.capacity = capacity;
         arrayForQueue = (T[]) new Object[capacity];
@@ -22,12 +24,15 @@ public class QueueFifo<T> {
 
     /**
      * Add item in the end of queue.
+     *
      * @param obj - add item.
-     * @throws IllegalArgumentException - when trying to add null item.
+     * @throws IllegalArgumentException       - when trying to add null item.
      * @throws ArrayIndexOutOfBoundsException - when trying to add an item to a fully populated queue.
      */
     public void add(T obj) throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
-        checkNull(obj);
+        if (isNull(obj)) {
+            throw new IllegalArgumentException("item is NULL");
+        }
         if (isFull()) {
             throw new ArrayIndexOutOfBoundsException("ERROR: queue already full");
         } else if (isEmpty()) {
@@ -42,6 +47,7 @@ public class QueueFifo<T> {
 
     /**
      * Remove item from head if queue.
+     *
      * @throws IndexOutOfBoundsException - when trying to remove item from empty queue.
      */
     public void del() throws IndexOutOfBoundsException {
@@ -54,6 +60,7 @@ public class QueueFifo<T> {
 
     /**
      * Remove all items from head if queue.
+     *
      * @throws IndexOutOfBoundsException - when trying to remove items from empty queue.
      */
     public void clear() {
@@ -67,8 +74,9 @@ public class QueueFifo<T> {
     }
 
     /**
-     * Get first item int the queue.
-     * @return - first item int the queue.
+     * Get first item in the queue.
+     *
+     * @return - first item in the queue.
      * @throws IndexOutOfBoundsException - when trying to get item from empty queue.
      */
     public T get() throws IndexOutOfBoundsException {
@@ -78,17 +86,17 @@ public class QueueFifo<T> {
         return arrayForQueue[availableItems - 1];
     }
 
-    /** Return the maximum possible queue size */
     public int getCapacity() {
         return capacity;
     }
 
-    /** Return the current number of items in the queue */
     public int getAvailableItems() {
         return availableItems;
     }
 
-    /** Display the contents of the entire array on the screen (including empty cells) */
+    /**
+     * Display the contents of the entire array on the screen (including empty cells)
+     */
     public void print() {
         System.out.print("| ");
         for (int i = 0; i < capacity; i++) {
@@ -97,19 +105,20 @@ public class QueueFifo<T> {
         System.out.println();
     }
 
-    /** Check for null element */
-    private void checkNull(T s) {
-        if (s == null) {
-            throw new IllegalArgumentException("item is NULL");
-        }
+    /**
+     * Check for null element
+     *
+     * @param s - object that checks for null
+     * @throws IllegalArgumentException - if the object is null
+     */
+    private boolean isNull(T s) {
+        return s == null;
     }
 
-    /** Check if the queue is full? */
     private boolean isFull() {
         return availableItems == capacity;
     }
 
-    /** Check if the queue is empty? */
     private boolean isEmpty() {
         return availableItems == 0;
     }
