@@ -1,6 +1,3 @@
 .idea/
 *.iml
 *.iws
-.javadocs/
-.out/
-.target/
