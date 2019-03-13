@@ -1,12 +1,25 @@
 package intrnshp_03_LinkedList;
 
+/**
+ * Linked list, generalized collection. Null can be stored.
+ * first - link to first item of the list.
+ * last - link to last item of the list.
+ * size - quantity of items of the list.
+ *
+ * @param <T> - type of objects to be stored in the linked list
+ * @author - Andreev Aleksandr, al.andreev@andersenlab.com
+ */
 public class LinkedList<T> {
 
     private ItemOfLinkedList<T> first;
     private ItemOfLinkedList<T> last;
     private int size = 0;
 
-    // добавить в конец
+    /**
+     * Add item in the end of linked list.
+     *
+     * @param obj - add item.
+     */
     public void add(T obj) {
         if (isEmpty()) {
             ItemOfLinkedList<T> newItem = new ItemOfLinkedList<>(null, null, obj);
@@ -18,7 +31,14 @@ public class LinkedList<T> {
         size++;
     }
 
-    // Добавление объекта в по индексу
+    /**
+     * Add item by index. If index = (quantity elements of linked list + 1), item will add in the end if linked list.
+     *
+     * @param index - number of future position of adding item.
+     * @param obj   - object of adding item.
+     * @throws IndexOutOfBoundsException - when index not correct (less than 0 or bigger then quantity
+     *                                   elements of linked list + 1.
+     */
     public void add(int index, T obj) throws IndexOutOfBoundsException {
         if ((index > size) || (index < 0)) {
             throw new IndexOutOfBoundsException("ERROR: index is not correct");
@@ -26,7 +46,6 @@ public class LinkedList<T> {
         if (index == size) {
             add(obj);
         } else {
-            // делаем вставку
             ItemOfLinkedList<T> shiftedRightItem = findItemByIndexUnsafe(index);
             ItemOfLinkedList<T> newItem = new ItemOfLinkedList<>(shiftedRightItem.prevItem, shiftedRightItem, obj);
             if (index == 0) { // если надо вставить в самое начало
@@ -39,7 +58,12 @@ public class LinkedList<T> {
         }
     }
 
-    // найти элемент по индексу (без проверки на существование index)
+    /**
+     * Find item by index. Index is not checked for correctness. Item is searched by half of list.
+     *
+     * @param index - number of searching item.
+     * @return - required item of linked list.
+     */
     private ItemOfLinkedList<T> findItemByIndexUnsafe(int index) {
         ItemOfLinkedList<T> desiredItem;
         if (index < size / 2) {
@@ -56,12 +80,15 @@ public class LinkedList<T> {
         return desiredItem;
     }
 
-    // Удаление последнего элемента
+    /**
+     * Delete last item in linked list.
+     *
+     * @throws IndexOutOfBoundsException - when try to delete item in empty linked list.
+     */
     public void del() throws IndexOutOfBoundsException {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("ERROR: LinkedList is already empty");
         }
-
         if (size == 1) {
             first = last = null;
             size = 0;
@@ -72,20 +99,25 @@ public class LinkedList<T> {
         }
     }
 
-    // Удаление элемента по индексу
-    public void del(int index) {
+    /**
+     * Delete item by index.
+     *
+     * @param index - number of deleting item.
+     * @throws IndexOutOfBoundsException - when item with input index is not exist
+     */
+    public void del(int index) throws IndexOutOfBoundsException {
         if ((index > size - 1) || (index < 0)) {
             throw new IndexOutOfBoundsException("ERROR: index is not correct");
         }
 
-        if (size == 1) {   // если это единственный элемент
+        if (size == 1) {
             first = last = null;
-        } else if (index == size - 1) {  // если это последний элемент
+        } else if (index == size - 1) {
             last.prevItem.nextItem = null;
             last = last.prevItem;
         } else {
             ItemOfLinkedList<T> deletedItem = findItemByIndexUnsafe(index);
-            if (index == 0) { // если надо удалить из самого начала
+            if (index == 0) {
                 first = deletedItem.nextItem;
                 deletedItem.nextItem.prevItem = null;
             } else {
@@ -96,7 +128,13 @@ public class LinkedList<T> {
         size--;
     }
 
-    // Удаление элемента по значению объекта
+    /**
+     * Delete the first one element of list which has found the entered object.
+     * Search of deleting item goes from the first element to the last.
+     *
+     * @param obj - object looking for among the elements of list.
+     * @throws IndexOutOfBoundsException - when list is empty or no such object found.
+     */
     public void del(T obj) throws IndexOutOfBoundsException {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("ERROR: LinkedList is already empty");
@@ -121,6 +159,13 @@ public class LinkedList<T> {
         size--;
     }
 
+    /**
+     * Find item that has the entered object.
+     * Search goes from the first element of list to the last.
+     *
+     * @param obj - object of searching item.
+     * @return - required item of linked list. Return null if nothing is found.
+     */
     private ItemOfLinkedList<T> findItemByObj(T obj) {
         ItemOfLinkedList<T> item = first;
         do {
@@ -135,6 +180,11 @@ public class LinkedList<T> {
         return null;
     }
 
+    /**
+     * Delete all items in the list.
+     *
+     * @throws IndexOutOfBoundsException - when try to clear empty list.
+     */
     public void clear() throws IndexOutOfBoundsException {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("ERROR: LinkedList is already empty");
@@ -143,6 +193,9 @@ public class LinkedList<T> {
         size = 0;
     }
 
+    /**
+     * Display the contents of the entire linked list on the screen (including null cells)
+     */
     public void print() {
         ItemOfLinkedList<T> itemForPrint = first;
         if (isEmpty()) {
@@ -156,16 +209,27 @@ public class LinkedList<T> {
         System.out.println();
     }
 
-    // Получение объекта последнего элемента
-    public T get() {
+    /**
+     * Get object of last item of list.
+     *
+     * @return - required object
+     * @throws IndexOutOfBoundsException - when try to get item from empty list.
+     */
+    public T get() throws IndexOutOfBoundsException {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("ERROR: LinkedList is empty");
         }
         return last.obj;
     }
 
-    // Получить по индексу
-    public T get(int index) {
+    /**
+     * Get object of item with entered index.
+     *
+     * @param index - number of item whose object will be returned.
+     * @return - object of item with entered index.
+     * @throws IndexOutOfBoundsException - when entered index is not exist
+     */
+    public T get(int index) throws IndexOutOfBoundsException {
         if ((index > size - 1) || (index < 0)) {
             throw new IndexOutOfBoundsException("ERROR: index is not correct");
         }
@@ -180,6 +244,13 @@ public class LinkedList<T> {
         return size == 0;
     }
 
+    /**
+     * Structure of item of linked list.
+     * prevItem - link to the previous item.
+     * nextItem - link to the next item.
+     *
+     * @param <T> - type of objects to be stored
+     */
     private static class ItemOfLinkedList<T> {
         ItemOfLinkedList<T> prevItem;
         ItemOfLinkedList<T> nextItem;
