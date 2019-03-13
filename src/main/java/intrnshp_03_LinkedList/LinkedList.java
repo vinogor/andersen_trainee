@@ -61,9 +61,15 @@ public class LinkedList<T> {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("ERROR: LinkedList is already empty");
         }
-        last.prevItem.nextItem = null;
-        last = last.prevItem;
-        size--;
+
+        if (size == 1) {
+            first = last = null;
+            size = 0;
+        } else {
+            last.prevItem.nextItem = null;
+            last = last.prevItem;
+            size--;
+        }
     }
 
     // Удаление элемента по индексу
@@ -71,7 +77,10 @@ public class LinkedList<T> {
         if ((index > size - 1) || (index < 0)) {
             throw new IndexOutOfBoundsException("ERROR: index is not correct");
         }
-        if (index == size - 1) {
+
+        if (size == 1) {   // если это единственный элемент
+            first = last = null;
+        } else if (index == size - 1) {  // если это последний элемент
             last.prevItem.nextItem = null;
             last = last.prevItem;
         } else {
@@ -89,20 +98,27 @@ public class LinkedList<T> {
 
     // Удаление элемента по значению объекта
     public void del(T obj) throws IndexOutOfBoundsException {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("ERROR: LinkedList is already empty");
+        }
         ItemOfLinkedList<T> deletedItem = findItemByObj(obj);
         if (deletedItem == null) {
             throw new IndexOutOfBoundsException("ERROR: no such object found");
         }
-        if (deletedItem.nextItem == null) {
+
+        if (size == 1) {
+            first = last = null;
+        } else if (deletedItem.nextItem == null) {
             deletedItem.prevItem.nextItem = null;
             last = deletedItem.prevItem;
-        } else if(deletedItem.prevItem == null) {
+        } else if (deletedItem.prevItem == null) {
             deletedItem.nextItem.prevItem = null;
             first = deletedItem.nextItem;
         } else {
             deletedItem.prevItem.nextItem = deletedItem.nextItem;
             deletedItem.nextItem.prevItem = deletedItem.prevItem;
         }
+        size--;
     }
 
     private ItemOfLinkedList<T> findItemByObj(T obj) {
@@ -146,6 +162,14 @@ public class LinkedList<T> {
             throw new IndexOutOfBoundsException("ERROR: LinkedList is empty");
         }
         return last.obj;
+    }
+
+    // Получить по индексу
+    public T get(int index) {
+        if ((index > size - 1) || (index < 0)) {
+            throw new IndexOutOfBoundsException("ERROR: index is not correct");
+        }
+        return findItemByIndexUnsafe(index).obj;
     }
 
     public int size() {
