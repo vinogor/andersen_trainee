@@ -1,6 +1,6 @@
 .idea/
 *.iws
 *.iml
-.javadocs/
-.out/
-.target/
+javadocs/
+out/
+target/
