@@ -1,17 +1,34 @@
 package intrnshp_04_Stack_impl_List;
 
-// LIFO - last in - first out
+/**
+ * LIFO stack, generalized collection
+ *
+ * @param <T> - type of objects to be stored in the stack
+ * @author - Andreev Aleksandr, al.andreev@andersenlab.com
+ */
 public class Stack<T> implements StackInterface<T> {
 
     private int capacity;
     private int index = -1;
     private T[] arrForStack;
 
+    /**
+     * Set maximum stack size
+     *
+     * @param capacity -  maximum amount of items in stack
+     */
     public Stack(int capacity) {
         this.capacity = capacity;
         arrForStack = (T[]) new Object[capacity];
     }
 
+    /**
+     * Put item on the top of stack
+     *
+     * @param obj - object for insert
+     * @throws ArrayIndexOutOfBoundsException - when try to put item in already full stack
+     * @throws IllegalArgumentException - when try to put null object
+     */
     @Override
     public void push(T obj) throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
         if (isFull()) {
@@ -23,6 +40,11 @@ public class Stack<T> implements StackInterface<T> {
         arrForStack[index] = obj;
     }
 
+    /**
+     * Delete item from the top of stack
+     *
+     * @throws ArrayIndexOutOfBoundsException - then try to delete from empty stack
+     */
     @Override
     public void del() throws ArrayIndexOutOfBoundsException {
         if (isEmpty()) {
@@ -32,6 +54,11 @@ public class Stack<T> implements StackInterface<T> {
         index--;
     }
 
+    /**
+     * Make stack clear - delete all items.
+     *
+     * @throws ArrayIndexOutOfBoundsException - when try to clear already empty stack.
+     */
     @Override
     public void clear() throws ArrayIndexOutOfBoundsException {
         if (isEmpty()) {
@@ -43,6 +70,12 @@ public class Stack<T> implements StackInterface<T> {
         index = -1;
     }
 
+    /**
+     * Get item from the top of stack.
+     *
+     * @return - object from the top of stack.
+     * @throws ArrayIndexOutOfBoundsException - when try to get item from empty stack.
+     */
     @Override
     public T peek() throws ArrayIndexOutOfBoundsException {
         if (isEmpty()) {
@@ -51,10 +84,20 @@ public class Stack<T> implements StackInterface<T> {
         return arrForStack[index];
     }
 
+    /**
+     * Is entered object contained in a stack?
+     *
+     * @param obj - object to search
+     * @return - true if contained, false if NOT contained
+     * @throws ArrayIndexOutOfBoundsException - then try to search in empty stack
+     * @throws IllegalArgumentException - then try to search null object
+     */
     @Override
-    public boolean contain(T obj) throws ArrayIndexOutOfBoundsException {
+    public boolean contain(T obj) throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
         if (isEmpty()) {
             throw new ArrayIndexOutOfBoundsException("ERROR: stack is empty");
+        } else if(isNull(obj)) {
+            throw new IllegalArgumentException("ERROR: input item is NULL");
         }
         for (int i = 0; i < index + 1; i++) {
             if (obj.equals(arrForStack[i])) {
@@ -64,6 +107,9 @@ public class Stack<T> implements StackInterface<T> {
         return false;
     }
 
+    /**
+     * Display the contents of the entire stack on the screen (including empty cells)
+     */
     @Override
     public void print() {
         for (int i = 0; i < capacity; i++) {

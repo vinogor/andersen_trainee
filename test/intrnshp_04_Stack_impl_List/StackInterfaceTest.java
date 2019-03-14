@@ -13,26 +13,35 @@ public class StackInterfaceTest {
     private static final String DUMMY_2 = "DUMMY_2";
     private static final String DUMMY_3 = "DUMMY_3";
 
+    /**
+     * Create an instance of the class under test
+     */
     @Before
     public void testStarted() {
         stack = new Stack<>(3);
     }
 
-    // просто добавили и чекнули кол-во
+    /**
+     * Put one item and check amount of elements in stack
+     */
     @Test
     public void pushTest01() {
         stack.push(DUMMY);
         assertEquals(1, stack.amountOfItems());
     }
 
-    // попытка добавить нул
+    /**
+     * Try to put null. Expect IllegalArgumentException
+     */
     @Test(expected = IllegalArgumentException.class)
     public void pushTest02() {
         stack.push(null);
         assertEquals(1, stack.amountOfItems());
     }
 
-    // положили 3шт, 1 удалили, чекнули кол-во и значение вершины
+    /**
+     * Put three items and delete one. Check amount of elements in stack and value of top.
+     */
     @Test
     public void delTest01() {
         stack.push(DUMMY_1);
@@ -43,13 +52,17 @@ public class StackInterfaceTest {
         assertEquals(DUMMY_2, stack.peek());
     }
 
-    // попытка удалить из пустого
+    /**
+     * Try to delete item in empty stack. Expect ArrayIndexOutOfBoundsException.
+     */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void delTest02() {
         stack.del();
     }
 
-    // положили 3шт, очистили, чекнули кол-во
+    /**
+     * Put three items and clear all. Check amount of elements in queue
+     */
     @Test
     public void clearTest01() {
         stack.push(DUMMY_1);
@@ -59,13 +72,17 @@ public class StackInterfaceTest {
         assertEquals(0, stack.amountOfItems());
     }
 
-    // попытка очистить пустой стэк
+    /**
+     * Try to clear all items in empty stack. Expect ArrayIndexOutOfBoundsException
+     */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void clearTest02() {
         stack.clear();
     }
 
-    // положили 2шт, получили вершину и сравнили с тем что клали
+    /**
+     * Put two items, get item from top, compare with last item put
+     */
     @Test
     public void peekTest01() {
         stack.push(DUMMY_1);
@@ -73,13 +90,17 @@ public class StackInterfaceTest {
         assertEquals(DUMMY_2, stack.peek());
     }
 
-    // попытка получить вершину у пустого стэка
+    /**
+     * Attempt to get top item from empty stack. Expect ArrayIndexOutOfBoundsException.
+     */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void peekTest02() {
         stack.peek();
     }
 
-    // положили 3шт, ищем вхождение, ожидаем ТРУ
+    /**
+     * Put three items. Look for existing entry.
+     */
     @Test
     public void containTest01() {
         stack.push(DUMMY_1);
@@ -88,7 +109,9 @@ public class StackInterfaceTest {
         assertTrue(stack.contain(DUMMY_2));
     }
 
-    // положили 3шт, ищем несуществующее вхождение, ожидаем ФОЛС
+    /**
+     * Put three items. Look for NOT existing entry.
+     */
     @Test
     public void containTest02() {
         stack.push(DUMMY_1);
@@ -97,7 +120,9 @@ public class StackInterfaceTest {
         assertFalse(stack.contain(DUMMY));
     }
 
-    // положили 3шт, сравниваем кол-во элементов
+    /**
+     * Put three items. Compare expected and real amount of items.
+     */
     @Test
     public void amountOfItemsTest01() {
         stack.push(DUMMY_1);
