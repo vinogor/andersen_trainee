@@ -1,9 +1,9 @@
 package intrnshp_04_Stack_impl_List;
 
 /**
- * LIFO stack, generalized collection
+ * LIFO stack, generalized collection.
  *
- * @param <T> - type of objects to be stored in the stack
+ * @param <T> - type of objects to be stored in the stack.
  * @author - Andreev Aleksandr, al.andreev@andersenlab.com
  */
 public class Stack<T> implements StackInterface<T> {
@@ -13,9 +13,9 @@ public class Stack<T> implements StackInterface<T> {
     private T[] arrForStack;
 
     /**
-     * Set maximum stack size
+     * Set maximum stack size.
      *
-     * @param capacity -  maximum amount of items in stack
+     * @param capacity -  maximum amount of items in stack.
      */
     public Stack(int capacity) {
         this.capacity = capacity;
@@ -23,11 +23,11 @@ public class Stack<T> implements StackInterface<T> {
     }
 
     /**
-     * Put item on the top of stack
+     * Put item on the top of stack.
      *
-     * @param obj - object for insert
-     * @throws ArrayIndexOutOfBoundsException - when try to put item in already full stack
-     * @throws IllegalArgumentException - when try to put null object
+     * @param obj - object for insert.
+     * @throws ArrayIndexOutOfBoundsException - when try to put item in already full stack.
+     * @throws IllegalArgumentException - when try to put null object.
      */
     @Override
     public void push(T obj) throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
@@ -41,9 +41,9 @@ public class Stack<T> implements StackInterface<T> {
     }
 
     /**
-     * Delete item from the top of stack
+     * Delete item from the top of stack.
      *
-     * @throws ArrayIndexOutOfBoundsException - then try to delete from empty stack
+     * @throws ArrayIndexOutOfBoundsException - then try to delete from empty stack.
      */
     @Override
     public void del() throws ArrayIndexOutOfBoundsException {
@@ -85,12 +85,12 @@ public class Stack<T> implements StackInterface<T> {
     }
 
     /**
-     * Is entered object contained in a stack?
+     * Check the presence of the entered object in the stack.
      *
-     * @param obj - object to search
-     * @return - true if contained, false if NOT contained
-     * @throws ArrayIndexOutOfBoundsException - then try to search in empty stack
-     * @throws IllegalArgumentException - then try to search null object
+     * @param obj - object to search.
+     * @return - true if contained, false if NOT contained.
+     * @throws ArrayIndexOutOfBoundsException - then try to search in empty stack.
+     * @throws IllegalArgumentException - then try to search null object.
      */
     @Override
     public boolean contain(T obj) throws ArrayIndexOutOfBoundsException, IllegalArgumentException {
@@ -108,7 +108,7 @@ public class Stack<T> implements StackInterface<T> {
     }
 
     /**
-     * Display the contents of the entire stack on the screen (including empty cells)
+     * Display the contents of the entire stack on the screen (including empty cells).
      */
     @Override
     public void print() {

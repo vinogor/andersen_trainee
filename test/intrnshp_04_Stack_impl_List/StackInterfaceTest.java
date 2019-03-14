@@ -14,7 +14,7 @@ public class StackInterfaceTest {
     private static final String DUMMY_3 = "DUMMY_3";
 
     /**
-     * Create an instance of the class under test
+     * Create an instance of the class under test.
      */
     @Before
     public void testStarted() {
@@ -22,7 +22,7 @@ public class StackInterfaceTest {
     }
 
     /**
-     * Put one item and check amount of elements in stack
+     * Put one item and check amount of elements in stack.
      */
     @Test
     public void pushTest01() {
@@ -31,7 +31,7 @@ public class StackInterfaceTest {
     }
 
     /**
-     * Try to put null. Expect IllegalArgumentException
+     * Try to put null. Expect IllegalArgumentException.
      */
     @Test(expected = IllegalArgumentException.class)
     public void pushTest02() {
@@ -61,7 +61,7 @@ public class StackInterfaceTest {
     }
 
     /**
-     * Put three items and clear all. Check amount of elements in queue
+     * Put three items and clear all. Check amount of elements in queue.
      */
     @Test
     public void clearTest01() {
@@ -73,7 +73,7 @@ public class StackInterfaceTest {
     }
 
     /**
-     * Try to clear all items in empty stack. Expect ArrayIndexOutOfBoundsException
+     * Try to clear all items in empty stack. Expect ArrayIndexOutOfBoundsException.
      */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void clearTest02() {
@@ -81,7 +81,7 @@ public class StackInterfaceTest {
     }
 
     /**
-     * Put two items, get item from top, compare with last item put
+     * Put two items, get item from top, compare with last item put.
      */
     @Test
     public void peekTest01() {

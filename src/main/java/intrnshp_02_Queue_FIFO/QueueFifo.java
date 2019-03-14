@@ -94,7 +94,7 @@ public class QueueFifo<T> {
     }
 
     /**
-     * Display the contents of the entire array on the screen (including empty cells)
+     * Display the contents of the entire array on the screen (including empty cells).
      */
     public void print() {
         System.out.print("| ");
@@ -105,10 +105,10 @@ public class QueueFifo<T> {
     }
 
     /**
-     * Check for null element
+     * Check for null element.
      *
-     * @param s - object that checks for null
-     * @throws IllegalArgumentException - if the object is null
+     * @param s - object that checks for null.
+     * @throws IllegalArgumentException - if the object is null.
      */
     private boolean isNull(T s) {
         return s == null;
