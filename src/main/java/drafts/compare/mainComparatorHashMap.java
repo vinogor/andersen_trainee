@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class mainComparator {
+public class mainComparatorHashMap {
 
     // например отсортировать по кол-ву символов в ключе-строке
 

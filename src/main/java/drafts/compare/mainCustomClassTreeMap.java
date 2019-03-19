@@ -3,7 +3,7 @@ package drafts.compare;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class mainCustomClass {
+public class mainCustomClassTreeMap {
 
     // В качестве коллюча мапы - кастомный класс.
     // отсортировать через по какому-то полю кастомного класса через добавление интерфейса Comparable
