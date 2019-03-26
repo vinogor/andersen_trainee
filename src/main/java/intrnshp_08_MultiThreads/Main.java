@@ -72,7 +72,7 @@ public class Main {
         Future<Integer> subCall = es.submit(new ThreadImplCallable());
 
         // благодаря чему теперь можно узнавать состояние задачи - завершилась ли, получить результат и т.п.
-        subRun.get(); // будет стоять пока не завершится задача, ничего не возвращает
+        subRun.get();// будет стоять пока не завершится задача, ничего не возвращает
 
         Integer num = subCall.get(); // по завершению возвращает результат
         System.out.println("Callable method return: " + num);
